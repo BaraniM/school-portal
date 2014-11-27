@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br><br>
+	<ul>
+    <div align="center">
+      <p>You searched for " {{query}} " </p>
+  <a href="/content/{{lang}}/">
+                <button id='Go-back-button' type='submit' class="btn btn-primary"><span>Go Back</span></button></a>
+  		<br><br>
+    </div>
+      {% if results_name %}
+    <div class="table-responsive">
+                <table class="table table-hover">
+                 <tr class="success">
+                        <td><strong>Class</strong></td>
+                        <td><strong>subject</strong></td>
+                        <td><strong>Topic</strong></td>
+                        <td><strong>Summary</strong></td>
+                        <td><strong>PDF</strong></td>
+                    <td><strong>Video</strong></td>
+                    <td><strong>animation</strong></td>
+                    
+                 </tr>
+
+	{% for page in results_name %}
+		   <tr class="active">
+                 <td><strong>Class {{page.class_number}}</strong></a>
+                      </p>
+                    </td>
+                 
+                 <td><strong>{{page.name}}</strong></a>
+                      </p>
+                    </td>
+                    
+                  <td><strong><a href="/content/{{page.class_number}}/{{page.name}}/{{page.topic}}/{{page.id}}">{{page.topic}}</a></strong>
+                    </td>
+                    
+                    
+                    
+                    <td class="lead" text-align="justify">
+                      {{page.summary|safe|linebreaks|truncatewords:10}}
+                    </td>
+                    
+                    <td>
+                    {% if page.pdf %}
+                      <a href="/media/{{page.pdf}}"><i class="fa fa-file-pdf-o fa-2x"></i></a>
+                        {% else %}<i class="fa fa-ban fa-2x"></i>
+                    {% endif %} </td><td>
+                    {% if page.video %}
+                    <a href="/media/{{page.video}}"><i class="fa fa-file-video-o fa-2x"></i></a>
+                    {% else %}<i class="fa fa-ban fa-2x"></i>
+                    {% endif %} </td><td>
+                    {% if page.animation %}
+                    <a href="/media/animation/{{page.animation}}"><i class="fa fa-file-image-o fa-2x"></i></a>
+                    {% else %}<i class="fa fa-ban fa-2x"></i>
+                    {% endif %} 
+                    </td>         
+                  </tr>
+		 {% endfor %}
+     
+		  </table>
+
+
+    {% elif results_topic %}
+    <div class="table-responsive">
+                <table class="table table-hover">
+                 <tr class="success">
+                        <td><strong>Class</strong></td>
+                        <td><strong>subject</strong></td>
+                        <td><strong>Topic</strong></td>
+                        <td><strong>Summary</strong></td>
+                        <td><strong>PDF</strong></td>
+                    <td><strong>Video</strong></td>
+                    <td><strong>animation</strong></td>
+                    
+                 </tr>
+
+  {% for page in results_topic %}
+       <tr class="active">
+                 <td><strong>Class {{page.class_number}}</strong></a>
+                      </p>
+                    </td>
+                 
+                 <td><strong>{{page.name}}</strong></a>
+                      </p>
+                    </td>
+                    {% if user.is_authenticated %}
+                        {% if user.contributor %}
+                    <td><a href="/contributor/profile/{{page.class_number}}/{{page.name}}/{{page.topic}}/{{page.id}}"><strong>{{page.topic}}</strong></a>
+                    </td>
+                        {% elif user.reviewer %}
+                    <td><a href="/reviewer/profile/{{page.class_number}}/{{page.name}}/{{page.topic}}/{{page.id}}"><strong>{{page.topic}}</strong></a>
+                    </td>
+                    {% endif %}
+
+                    {% else %}
+                    <td><strong><a href="/content/{{page.class_number}}/{{page.name}}/{{page.topic}}/{{page.id}}">{{page.topic}}</strong></a>
+                    </td>
+                    {% endif %}
+                    <td class="lead" text-align="justify">
+                      {{page.summary|safe|linebreaks|truncatewords:10}}
+                    </td>
+                    
+                    <td>
+                    {% if page.pdf %}
+                      <a href="/media/{{page.pdf}}"><i class="fa fa-file-pdf-o fa-2x"></i></a>
+                        {% else %}<i class="fa fa-ban fa-2x"></i>
+                    {% endif %} </td><td>
+
+                    {% if page.video %}
+                    <a href="/media/{{page.video}}"><i class="fa fa-file-pdf-o fa-2x"></i></a>
+                        {% else %}<i class="fa fa-ban fa-2x"></i>
+                    {% endif %} </td><td>
+                    {% if page.animation %}
+                    <a href="/media/animation/{{page.animation}}"><i class="fa fa-file-image-o fa-2x"></i></a>
+                    {% else %}<i class="fa fa-ban fa-2x"></i>
+                    {% endif %} 
+                    </td>         
+                  </tr>
+     {% endfor %}
+     
+     {% else %}
+     <p>No results found</p>
+     
+     {% endif %}
+   </table>
+    </ul>
+</div>
+{% endblock content %}

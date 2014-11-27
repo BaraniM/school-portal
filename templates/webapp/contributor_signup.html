@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+
+{% load static %}
+
+{% block title %}
+- Register
+{% endblock title %}
+
+{% block content %} 
+
+{% if registered %}
+        <strong>thank you for registering!</strong>
+        <a href="webapp/home.html">Return to the homepage.</a><br />
+        {% else %}
+        <br>
+	<br>
+	<br>
+        <br>
+	<br>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Register as Contributor</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+             <form id="user_form" method="post"
+                enctype="multipart/form-data">
+            
+                          
+            			{% csrf_token %}
+                                {% if messages %}
+				{% for message in messages %}
+				{% if message.tags == "success" %}
+				<p class="text-info" align="center"><strong>{{ message }}</strong></p>
+				{% else %}
+				<p class="text-danger" align="center"><strong>{{ message }}</strong></p>
+				{% endif %}
+				{% endfor %}
+				{% endif %} 
+	     			
+              	                
+            			{{ user_form.as_p }}
+            			{{ contributor_form.as_p }}
+                                
+		            <input type="submit" name="submit" class="btn btn-lg btn-primary" value="Register" />
+                            <br>
+                            <br>
+		            </div>
+                        </div>                 
+                    </form>
+                </div>
+         </div>
+    
+{% endif %}   
+{% endblock content %}
+
+

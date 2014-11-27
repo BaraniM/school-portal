@@ -1,0 +1,13 @@
+Django==1.5
+Jinja2==2.7.3
+MarkupSafe==0.23
+PIL==1.1.7
+Pygments==1.6
+Sphinx==1.2.2
+argparse==1.2.1
+distribute==0.6.24
+docutils==0.11
+wsgiref==0.1.2
+django-recaptcha==0.0.9
+MySQL-python==1.2.5
+

@@ -1,0 +1,10 @@
+# Garbage files
+*~
+*.pyc
+*.swp
+# Django media
+media/
+# Sqlite database
+*.db
+# Docs
+docs/_build
